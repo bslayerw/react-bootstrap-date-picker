@@ -162,7 +162,7 @@ const Calendar = createReactClass({
           const afterMinDate = maxDate && Date.parse(date) > Date.parse(maxDate);
           let clickHandler = this.handleClick;
           const style = { cursor: 'pointer', padding: this.props.cellPadding, borderRadius: this.props.roundedCorners ? 5 : 0 };
-          
+          console.log(`herereerrere\n\n\n\n`)
           if (beforeMinDate || afterMinDate || (this.props.selectableDay && this.props.selectableDay(jsDate))) {
             className = 'text-muted';
             clickHandler = null;
