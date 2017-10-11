@@ -707,6 +707,7 @@ export default createReactClass({
             maxDate={this.props.maxDate}
             roundedCorners={this.props.roundedCorners}
             showWeeks={this.props.showWeeks}
+            selectableDay={this.props.selectableDay}
            />
         </Popover>
       </Overlay>
