@@ -91,7 +91,8 @@ const Calendar = createReactClass({
     showTodayButton: PropTypes.bool,
     todayButtonLabel: PropTypes.string,
     roundedCorners: PropTypes.bool,
-    showWeeks: PropTypes.bool
+    showWeeks: PropTypes.bool,
+    disabledDay: PropTypes.func
   },
 
   handleClick(e) {
@@ -155,13 +156,14 @@ const Calendar = createReactClass({
       for (let j = 0; j <= 6; j++) {
         if (day <= monthLength && (i > 0 || j >= startingDay)) {
           let className = null;
-          const date = new Date(year, month, day, 12, 0, 0, 0).toISOString();
+          const jsDate = new Date(year, month, day, 12, 0, 0, 0);
+          const date = jsDate.toISOString();
           const beforeMinDate = minDate && Date.parse(date) < Date.parse(minDate);
           const afterMinDate = maxDate && Date.parse(date) > Date.parse(maxDate);
           let clickHandler = this.handleClick;
           const style = { cursor: 'pointer', padding: this.props.cellPadding, borderRadius: this.props.roundedCorners ? 5 : 0 };
-
-          if (beforeMinDate || afterMinDate) {
+          
+          if (beforeMinDate || afterMinDate || (this.props.selectableDay && this.props.selectableDay(jsDate))) {
             className = 'text-muted';
             clickHandler = null;
             style.cursor = 'default';
@@ -308,7 +310,8 @@ export default createReactClass({
 
     ]),
     onInvalid: PropTypes.func,
-    noValidate: PropTypes.bool
+    noValidate: PropTypes.bool,
+    selectableDay: PropTypes.func
   },
 
   getDefaultProps() {
